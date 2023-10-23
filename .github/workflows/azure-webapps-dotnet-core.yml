@@ -51,9 +51,12 @@ jobs:
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
           restore-keys: |
             ${{ runner.os }}-nuget-
-
+    
       - name: Build with dotnet
         run: dotnet build --configuration Release
+
+      - name: Test with dotnet
+        run: dotnet test --no-build --verbosity normal
 
       - name: dotnet publish
         run: dotnet publish WebApiSample/WebApiSample.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
